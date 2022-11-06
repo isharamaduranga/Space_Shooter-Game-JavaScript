@@ -28,7 +28,7 @@ class Player {
             /** player Location and Adjust center of canvas */
             this.position = {
                 x: canvas.width / 2 - this.width / 2,
-                y: canvas.height - this.height - 10
+                y: canvas.height - this.height - 20
             }
         }
     }
@@ -70,7 +70,34 @@ class Player {
     }
 }
 
-const player = new Player();
+class projectile{
+    constructor({position,velocity}) {
+        this.position = position
+        this.velocity = velocity
+
+
+        this.radius =3
+    }
+
+    draw(){
+        c.beginPath()
+        c.arc(this.position.x , this.position.y ,
+            this.radius ,0, Math.PI * 2)
+        c.fillStyle = 'red'
+        c.fill()
+        c.closePath()
+    }
+    update(){
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+    }
+
+}
+
+
+const player = new Player()
+const projectiles = [ ]
 const keys = {
     ArrowLeft: {
         pressed: false
@@ -78,7 +105,7 @@ const keys = {
     ArrowRight: {
         pressed: false
     },
-    Shift: {
+    space: {
         pressed: false
     }
 
@@ -90,6 +117,10 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
+
+    projectiles.forEach(projectile => {
+        projectile.update()
+    })
 
     if (keys.ArrowLeft.pressed && player.position.x >= 0) {
         player.velocity.x = -7
@@ -109,6 +140,7 @@ animate();
 
 /** Player control keydown event Listener */
 addEventListener("keydown", ({key}) => {
+    console.log(key)
     switch (key) {
 
         case 'ArrowLeft':
@@ -121,8 +153,19 @@ addEventListener("keydown", ({key}) => {
             keys.ArrowRight.pressed = true
             break;
 
-        case 'Shift':
+        case ' ':
             console.log('Shoot the target');
+            projectiles.push(
+                new projectile({
+                position:{
+                    x:300,
+                    y:300
+                },
+                velocity:{
+                    x:0,
+                    y:0
+                }
+            }));
             break;
     }
 });
@@ -140,7 +183,7 @@ addEventListener("keyup", ({key}) => {
             keys.ArrowRight.pressed = false
             break;
 
-        case 'Shift':
+        case ' ':
             console.log('Shoot the target');
             break;
     }
