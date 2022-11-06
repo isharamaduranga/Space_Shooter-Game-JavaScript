@@ -57,3 +57,20 @@ function animate() {
 }
 animate();
 
+addEventListener("keydown", ({key}) =>{
+   switch (key){
+
+       case 'ArrowLeft':
+           console.log(key);
+           break;
+
+       case 'ArrowRight':
+           console.log(key);
+           break;
+       case 'Shift':
+           console.log(key);
+           break;
+
+
+   }
+});
