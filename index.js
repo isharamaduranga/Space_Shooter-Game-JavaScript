@@ -6,26 +6,54 @@ canvas.height = innerHeight;
 
 class Player{
     constructor() {
-        //player Location
-        this.position={
-            x: 200,
-            y:200
-        }
+
         //player speed
         this.velocity ={
-
+            x:0,
+            y:0
         }
 
-        // for player image
-        this.width =100
-        this.height = 100
+        // for player
+        const image = new Image();
+        image.src = './img/Space_Jet.png'
+        image.onload = () =>{
+            const scale = 0.25
+            this.image=image
+            this.width =image.width * scale;
+            this.height = image.height * scale;
+
+            //player Location and Adjust center of canvas
+            this.position={
+                x: canvas.width / 2 - this.width/2,
+                y:canvas.height - this.height -25
+            }
+        }
+
+
+
     }
 
     draw(){
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x,this.position.y,this.width,this.height);
+      /*  c.fillStyle = 'red'
+        c.fillRect(this.position.x,this.position.y,this.width,this.height);*/
+        if(this.image){
+            c.drawImage(
+                this.image,
+                this.position.x,
+                this.position.y,
+                this.width,
+                this.height)
+        }
     }
 }
 
 const player = new Player();
-player.draw();
+player.draw()
+
+function animate() {
+    requestAnimationFrame(animate);
+    c.fillRect(5,5,canvas.width,canvas.height)
+    player.draw();
+}
+animate();
+
