@@ -106,7 +106,7 @@ class Invader {
         const image = new Image();
         image.src = './img/invader.png'
         image.onload = () => {
-            const scale = 0.07
+            const scale = 0.065
             this.image = image
             this.width = image.width * scale;
             this.height = image.height * scale;
@@ -190,7 +190,7 @@ class Invader_Grid {
 
 const player = new Player()
 const projectiles = []
-const grids = [new Invader_Grid()]
+const grids = []
 
 const keys = {
     ArrowLeft: {
@@ -202,9 +202,11 @@ const keys = {
     space: {
         pressed: false
     }
-
 }
 
+let frames = 0;
+let randomInterval = Math.floor((Math.random() * 500) +500) ;
+console.log(randomInterval)
 /** Customized and animate every time game background */
 function animate() {
     requestAnimationFrame(animate)
@@ -246,7 +248,15 @@ function animate() {
         player.velocity.x = 0
         player.rotation = 0
     }
+    console.log(frames)
+    /** Define Random enemies grid*/
+    if(frames % randomInterval === 0){
+        grids.push(new Invader_Grid())
 
+       /** reset to zero and reprocess frames count and enemies */
+        frames=0;
+    }
+    frames++
 }
 
 animate();
