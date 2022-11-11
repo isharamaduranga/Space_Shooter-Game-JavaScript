@@ -72,7 +72,8 @@ class projectile {
     constructor({position, velocity}) {
         this.position = position
         this.velocity = velocity
-        this.radius = 3
+        // for size of bullet
+        this.radius = 4
     }
 
     draw() {
@@ -231,9 +232,39 @@ function animate() {
     /** iterate array and update invaders velocity */
     grids.forEach((grid) => {
         grid.update()
-        grid.invaders.forEach(invader => {
+        grid.invaders.forEach((invader,i) => {
 
             invader.update({velocity:grid.velocity});
+
+            projectiles.forEach((projectile , p)=> {
+                if (
+                    projectile.position.y - projectile.radius <=
+                    invader.position.y + invader.height &&
+                    projectile.position.x + projectile.radius >=
+                    invader.position.x  && projectile.position.x -
+                    projectile.radius <= invader.position.x + invader.width &&
+                    projectile.position.y + projectile.radius >= invader.position.y
+
+                ){
+                    
+                    setTimeout(function () {
+                        const invaderFound = grid.invaders.find(invader2 =>{
+                            return invader2 === invader
+                        });
+
+                        const projectileFound = projectiles.find(projectile2 =>{
+                            return projectile2 === projectile
+                        })
+
+                        if(invaderFound && projectileFound){
+                            grid.invaders.splice(i,1)
+                            projectiles.splice(p,1)
+                        }
+                    },0)
+                }
+
+            })
+
         })
     })
 
