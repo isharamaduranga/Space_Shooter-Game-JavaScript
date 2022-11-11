@@ -161,7 +161,7 @@ class Invader_Grid {
         const column = Math.floor(Math.random() * 10 + 5);
         const rows = Math.floor(Math.random() * 5 + 2);
 
-        this.width =column * 30
+        this.width =column * 35
         /** Randomly Defined grid columns  & rows in canvas */
         for (let x = 0; x < column; x++) {
             for (let y = 0; y < rows; y++) {
@@ -260,6 +260,20 @@ function animate() {
                         if(invaderFound && projectileFound){
                             grid.invaders.splice(i,1)
                             projectiles.splice(p,1)
+
+
+                            if(grid.invaders.length>0){
+                                const firstInvader = grid.invaders[0];
+                                const lastInvader = grid.invaders[grid.invaders.length-1];
+
+                                grid.width =
+                                    lastInvader.position.x - firstInvader.position.x + lastInvader.width
+
+                                grid.position.x = firstInvader.position.x
+
+
+                            }
+
                         }
                     },0)
                 }
