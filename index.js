@@ -21,7 +21,7 @@ class Player {
         const image = new Image();
         image.src = './img/jet.png'
         image.onload = () => {
-            const scale = 0.10
+            const scale = 0.13
             this.image = image
             this.width = image.width * scale;
             this.height = image.height * scale;
@@ -256,6 +256,7 @@ function animate() {
                             return projectile2 === projectile
                         })
 
+                        /** Remove invader and projectile */
                         if(invaderFound && projectileFound){
                             grid.invaders.splice(i,1)
                             projectiles.splice(p,1)
@@ -270,10 +271,10 @@ function animate() {
 
 
     if (keys.ArrowLeft.pressed && player.position.x >= 0) {
-        player.velocity.x = -7
+        player.velocity.x = -10
         player.rotation = -0.20
     } else if (keys.ArrowRight.pressed && player.position.x + player.width <= canvas.width) {
-        player.velocity.x = 7
+        player.velocity.x = 10
         player.rotation = 0.20
     } else {
         player.velocity.x = 0
