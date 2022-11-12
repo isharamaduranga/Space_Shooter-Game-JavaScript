@@ -236,9 +236,10 @@ class Invader_Grid {
     }
 }
 
-const player = new Player()
-const projectiles = []
-const grids = []
+const player = new Player();
+const projectiles = [];
+const grids = [];
+const invaderProjectiles = [];
 
 const keys = {
     ArrowLeft: {
@@ -264,6 +265,11 @@ function animate() {
     player.update()
 
 
+    invaderProjectiles.forEach(invaderProjectile=>{
+     invaderProjectile.update();
+    });
+
+
     projectiles.forEach((projectile, index) => {
 
         /** clean the Unnecessary projectiles in projectiles Array with condition */
@@ -280,6 +286,16 @@ function animate() {
     /** iterate array and update invaders velocity */
     grids.forEach((grid, gridIndex) => {
         grid.update()
+
+        /** Calling Shoot function to create spawn projectiles*/
+        if(frames % 100 === 0 && grid.invaders.length > 0 ){
+
+            /** find a new random invader in every grid & call to shoot method on which invader */
+            grid.invaders[
+                Math.floor(Math.random() * grid.invaders.length)
+                ].shoot();
+        }
+
         grid.invaders.forEach((invader, i) => {
 
             invader.update({velocity: grid.velocity});
@@ -342,9 +358,10 @@ function animate() {
         player.rotation = 0
     }
     console.log(frames)
-    /** Define Random enemies grid*/
+    /** Define to Rebuild Random enemies grid*/
     if (frames % randomInterval === 0) {
         grids.push(new Invader_Grid())
+        randomInterval = Math.floor((Math.random() * 500) + 500);
 
         /** reset to zero and reprocess frames count and enemies */
         frames = 0;
