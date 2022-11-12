@@ -104,11 +104,11 @@ class InvaderProjectile {
         this.velocity = velocity
         // for size of bullet
         this.width = 4
-        this.height =10
+        this.height =12
     }
 
     draw() {
-        c.fillStyle = 'white'
+        c.fillStyle = 'yellow'
         c.fillRect(this.position.x,this.position.y,this.width,this.height)
        /* c.beginPath()
         c.arc(this.position.x, this.position.y,
@@ -264,9 +264,16 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
 
+    /** clean the Unnecessary Invader Projectiles in InvaderProjectiles Array with condition */
+    invaderProjectiles.forEach((invaderProjectile,index)=>{
+        if(invaderProjectile.position.y + invaderProjectile.height >= canvas.height){
+            setTimeout(() =>{
+                invaderProjectiles.splice(index,1)
+            },0)
+        }else{
+            invaderProjectile.update();
+        }
 
-    invaderProjectiles.forEach(invaderProjectile=>{
-     invaderProjectile.update();
     });
 
 
@@ -293,7 +300,7 @@ function animate() {
             /** find a new random invader in every grid & call to shoot method on which invader */
             grid.invaders[
                 Math.floor(Math.random() * grid.invaders.length)
-                ].shoot();
+                ].shoot(invaderProjectiles);
         }
 
         grid.invaders.forEach((invader, i) => {
