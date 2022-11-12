@@ -295,9 +295,10 @@ const keys = {
         pressed: false
     }
 }
-/** Create the particles for the designs canvas with used many stars */
+/** Create the star particles for the designs canvas with used many stars */
 let frames = 0;
 let randomInterval = Math.floor((Math.random() * 500) + 500);
+
 
 for (let i = 0; i <100; i++) {
     particles.push(new Particle({
