@@ -1,4 +1,8 @@
 const canvas = document.querySelector('canvas');
+const scoreDisplay = document.querySelector('#scoreDisplay');
+
+console.log(scoreDisplay)
+
 const c = canvas.getContext('2d');
 let canvasCenter = canvas.height / 2;
 let radGradient = c.createRadialGradient(canvasCenter, canvasCenter, 50, canvasCenter, canvasCenter, 250);
@@ -303,6 +307,7 @@ let game = {
     over:false,
     active:true
 }
+let score = 0;
 
 
 for (let i = 0; i <100; i++) {
@@ -373,7 +378,7 @@ function animate() {
             particle.update();
         }
     });
-    console.log(particles)
+   // console.log(particles)
 
     /** Update Invader Projectiles & clean the Unnecessary Invader Projectiles in InvaderProjectiles Array with condition */
     invaderProjectiles.forEach((invaderProjectile, index) => {
@@ -474,6 +479,10 @@ function animate() {
 
                         if (invaderFound && projectileFound) {
 
+                            /** The score increases as the invaders are destroyed */
+                            score += 100;
+                            scoreDisplay.innerHTML = score;
+
                             /** call the createParticles function and pass the argument for the which object */
                             createParticles({
                                 object:invader,
@@ -492,9 +501,9 @@ function animate() {
                                     lastInvader.position.x - firstInvader.position.x + lastInvader.width
 
                                 grid.position.x = firstInvader.position.x
+                            }else {
+                                grids.splice(gridIndex, 1);
                             }
-                        } else {
-                            grid.splice(gridIndex, 1);
                         }
                     }, 0)
                 }
