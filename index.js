@@ -222,7 +222,7 @@ class Invader_Grid {
                 }))
             }
         }
-        console.log(this.invaders)
+        //console.log(this.invaders)
     }
 
     update() {
@@ -257,7 +257,7 @@ const keys = {
 
 let frames = 0;
 let randomInterval = Math.floor((Math.random() * 500) + 500);
-console.log(randomInterval)
+//console.log(randomInterval)
 radGradient.addColorStop(0.5, "blue");
 radGradient.addColorStop(0.2, "purple");
 radGradient.addColorStop(0.6, "black");
@@ -277,6 +277,18 @@ function animate() {
             },0)
         }else{
             invaderProjectile.update();
+        }
+
+        /** Define game end to Loos the player */
+        if(invaderProjectile.position.y+invaderProjectile.height >=
+            player.position.y && invaderProjectile.position.x +
+            invaderProjectile.width>= player.position.x &&
+            invaderProjectile.position.x <= player.position.x+player.width
+        ){
+            /** ********************************************* */
+                            /** E N D   G A M E*/
+            /** ********************************************* */
+        console.log('Your are loos buddy !!!!!')
         }
     });
         //console.log(invaderProjectiles)
@@ -368,7 +380,7 @@ function animate() {
         player.velocity.x = 0
         player.rotation = 0
     }
-    console.log(frames)
+    //console.log(frames)
     /** Define to Rebuild Random enemies grid*/
     if (frames % randomInterval === 0) {
         grids.push(new Invader_Grid())
