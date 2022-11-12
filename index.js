@@ -97,6 +97,10 @@ class projectile {
     }
 }
 
+
+
+
+
 // ================================================================================================== //
 /**                               INVADER PROJECTILES CLASS                                           */
 // ================================================================================================== //
@@ -242,6 +246,7 @@ const player = new Player();
 const projectiles = [];
 const grids = [];
 const invaderProjectiles = [];
+const particles = [];
 
 const keys = {
     ArrowLeft: {
@@ -268,6 +273,16 @@ function animate() {
     c.fillStyle = radGradient
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
+
+
+
+    particles.forEach(particle =>{
+        particle.update();
+    })
+
+
+
+
 
     /** clean the Unnecessary Invader Projectiles in InvaderProjectiles Array with condition */
     invaderProjectiles.forEach((invaderProjectile,index)=>{
@@ -323,6 +338,7 @@ function animate() {
 
             invader.update({velocity: grid.velocity});
 
+            /** projectile hit enemy*/
             projectiles.forEach((projectile, p) => {
                 if (
                     projectile.position.y - projectile.radius <=
@@ -333,6 +349,8 @@ function animate() {
                     projectile.position.y + projectile.radius >= invader.position.y
 
                 ) {
+
+
 
                     setTimeout(function () {
                         const invaderFound = grid.invaders.find(invader2 => {
