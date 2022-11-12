@@ -5,7 +5,7 @@ console.log(scoreDisplay)
 
 const c = canvas.getContext('2d');
 let canvasCenter = canvas.height / 2;
-let radGradient = c.createRadialGradient(canvasCenter, canvasCenter, 50, canvasCenter, canvasCenter, 250);
+let radGradient = c.createRadialGradient(canvasCenter, canvasCenter, 50, canvasCenter, canvasCenter, 300);
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
@@ -28,7 +28,7 @@ class Player {
         const image = new Image();
         image.src = './img/jet.png'
         image.onload = () => {
-            const scale = 0.13
+            const scale = 0.10
             this.image = image
             this.width = image.width * scale;
             this.height = image.height * scale;
