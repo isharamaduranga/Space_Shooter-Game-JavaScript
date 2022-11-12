@@ -117,6 +117,15 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
 
+
+    for (let i = player.particles.length - 1; i >= 0; i--) {
+        const particle = player.particles[i]
+        particle.update()
+
+        if (particle.opacity === 0) player.particles[i].splice(i, 1)
+    }
+
+
     /** Update blast particles & clean the Unnecessary Particles after the blast */
     particles.forEach((particle,i) => {
 
@@ -135,7 +144,8 @@ function animate() {
             particle.update();
         }
     });
-   // console.log(particles)
+
+
 
     /** Update Invader Projectiles & clean the Unnecessary Invader Projectiles in InvaderProjectiles Array with condition */
     invaderProjectiles.forEach((invaderProjectile, index) => {

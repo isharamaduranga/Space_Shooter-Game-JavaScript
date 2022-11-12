@@ -29,6 +29,8 @@ class Player {
             }
         }
 
+        this.particles = []
+        this.frames = 0
     }
 
     draw() {
@@ -56,11 +58,31 @@ class Player {
         c.restore();
     }
 
-    /** Press (Arrow keys & Shift update player position ..) */
     update() {
-        if (this.image) {
-            this.draw()
-            this.position.x += this.velocity.x
-        }
+        if (!this.image) return;
+
+        this.draw()
+
+        this.position.x += this.velocity.x
+
+        if (this.opacity !== 1) return;
+
+        this.frames++
+        if (this.frames % 2 === 0) {
+            this.particles.push(
+                new Particle({
+                    position: {
+                        x: this.position.x + this.width / 2,
+                        y: this.position.y + this.height-15
+                    },
+                    velocity: {
+                        x: (Math.random() - 0.5) * 1.5,
+                        y: 1.4
+                    },
+                    radius: Math.random() * 4,
+                    color: 'rgb(13,147,218)',
+                    fades: true
+                })
+            )}
     }
 }
