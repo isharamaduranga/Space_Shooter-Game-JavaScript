@@ -98,36 +98,38 @@ class projectile {
 }
 
 
-
 //================================================================================================== //
 /**                                       PARTICLE CLASS                                          */
 //================================================================================================== //
 class Particle {
-    constructor({position, velocity ,radius ,color}) {
+    constructor({position, velocity, radius, color}) {
         this.position = position
         this.velocity = velocity
         // for size of Particles
         this.radius = radius
         this.color = color
+        this.opacity = 1
     }
 
     draw() {
+        c.save()
+        c.globalAlpha = this.opacity
         c.beginPath()
         c.arc(this.position.x, this.position.y,
             this.radius, 0, Math.PI * 2)
         c.fillStyle = this.color
         c.fill()
         c.closePath()
+        c.restore()
     }
 
     update() {
         this.draw()
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
+        this.opacity -= 0.01
     }
 }
-
-
 
 
 // ================================================================================================== //
@@ -139,18 +141,18 @@ class InvaderProjectile {
         this.velocity = velocity
         // for size of bullet
         this.width = 4
-        this.height =12
+        this.height = 12
     }
 
     draw() {
         c.fillStyle = 'yellow'
-        c.fillRect(this.position.x,this.position.y,this.width,this.height)
-       /* c.beginPath()
-        c.arc(this.position.x, this.position.y,
-            this.radius, 0, Math.PI * 2)
-        c.fillStyle = 'red'
-        c.fill()
-        c.closePath()*/
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        /* c.beginPath()
+         c.arc(this.position.x, this.position.y,
+             this.radius, 0, Math.PI * 2)
+         c.fillStyle = 'red'
+         c.fill()
+         c.closePath()*/
     }
 
     update() {
@@ -210,16 +212,16 @@ class Invader {
         }
     }
 
-    shoot(invaderProjectiles){
+    shoot(invaderProjectiles) {
         invaderProjectiles.push(new InvaderProjectile({
 
-            position:{
-                x:this.position.x + this.width / 2,
-                y:this.position.y + this.height
+            position: {
+                x: this.position.x + this.width / 2,
+                y: this.position.y + this.height
             },
-            velocity:{
-                x:0,
-                y:5
+            velocity: {
+                x: 0,
+                y: 5
             }
         }));
     }
@@ -291,10 +293,29 @@ const keys = {
 
 let frames = 0;
 let randomInterval = Math.floor((Math.random() * 500) + 500);
-//console.log(randomInterval)
+
+/** Create the particles After the invader blast (RE-USED FUNCTION) */
+    function createParticles({object , color}) {
+
+    for (let i = 0; i <15; i++) {
+        particles.push(new Particle({
+            position:{
+                x:object.position.x + object.width / 2,
+                y:object.position.y + object.height /2
+            },
+            velocity:{
+                x:(Math.random()-0.5)*2,
+                y:(Math.random()-0.5)*2
+            },
+            radius:Math.random()*3,
+            color:color || 'deeppink'
+        }));
+    }
+}
 radGradient.addColorStop(0.5, "blue");
 radGradient.addColorStop(0.2, "purple");
 radGradient.addColorStop(0.6, "black");
+
 /** Customized and animate every time game background */
 function animate() {
 
@@ -303,43 +324,56 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
 
+    /** Update blast particles & clean the Unnecessary Particles after the blast */
+    particles.forEach((particle,i) => {
+        if(particle.opacity<= 0){
 
+            setTimeout(()=>{
+                particles.splice(i,1)
+            },0);
+        }else {
+            particle.update();
+        }
+    });
+    console.log(particles)
 
-    particles.forEach(particle =>{
-        particle.update();
-    })
-
-
-
-
-
-    /** clean the Unnecessary Invader Projectiles in InvaderProjectiles Array with condition */
-    invaderProjectiles.forEach((invaderProjectile,index)=>{
-        if(invaderProjectile.position.y + invaderProjectile.height >= canvas.height){
-            setTimeout(() =>{
-                invaderProjectiles.splice(index,1)
-            },0)
-        }else{
+    /** Update Invader Projectiles & clean the Unnecessary Invader Projectiles in InvaderProjectiles Array with condition */
+    invaderProjectiles.forEach((invaderProjectile, index) => {
+        if (invaderProjectile.position.y + invaderProjectile.height >= canvas.height) {
+            setTimeout(() => {
+                invaderProjectiles.splice(index, 1)
+            }, 0)
+        } else {
             invaderProjectile.update();
         }
 
-        /** Define game end to Loos the player */
-        if(invaderProjectile.position.y+invaderProjectile.height >=
+        /** Define game end to Loos the player  As projectiles hit the player */
+        if (invaderProjectile.position.y + invaderProjectile.height >=
             player.position.y && invaderProjectile.position.x +
-            invaderProjectile.width>= player.position.x &&
-            invaderProjectile.position.x <= player.position.x+player.width
-        ){
+            invaderProjectile.width >= player.position.x &&
+            invaderProjectile.position.x <= player.position.x + player.width
+        ) {
             /** ********************************************* */
-                            /** E N D   G A M E*/
+            /** E N D   G A M E*/
             /** ********************************************* */
-        console.log('Your are loos buddy !!!!!')
+            //console.log('Your are loos buddy !!!!!')
+
+            setTimeout(() => {
+                invaderProjectiles.splice(index, 1)
+            }, 0)
+
+            /** call the createParticles function and pass the argument for the which object */
+            createParticles({
+                object:player,
+                color:'white'
+            });
         }
     });
-        //console.log(invaderProjectiles)
+    //console.log(invaderProjectiles)
 
     projectiles.forEach((projectile, index) => {
 
-        /** clean the Unnecessary projectiles in projectiles Array with condition */
+        /** Update Projectiles & clean the Unnecessary projectiles in projectiles Array with condition */
         if (projectile.position.y + projectile.radius <= 0) {
             setTimeout(function () {
                 projectiles.splice(index, 1);
@@ -355,7 +389,7 @@ function animate() {
         grid.update()
 
         /** Calling Shoot function to create spawn projectiles*/
-        if(frames % 200 === 0 && grid.invaders.length > 0 ){
+        if (frames % 100 === 0 && grid.invaders.length > 0) {
 
             /** find a new random invader in every grid & call to shoot method on which invader */
             grid.invaders[
@@ -379,8 +413,6 @@ function animate() {
 
                 ) {
 
-
-
                     setTimeout(function () {
                         const invaderFound = grid.invaders.find(invader2 => {
                             return invader2 === invader
@@ -390,11 +422,16 @@ function animate() {
                             return projectile2 === projectile
                         })
 
-                        /** Remove invader and projectile */
                         if (invaderFound && projectileFound) {
+
+                            /** call the createParticles function and pass the argument for the which object */
+                            createParticles({
+                                object:invader,
+                            });
+
+                            /** Remove invader and projectile */
                             grid.invaders.splice(i, 1)
                             projectiles.splice(p, 1)
-
 
                             if (grid.invaders.length > 0) {
                                 const firstInvader = grid.invaders[0];
