@@ -1,5 +1,7 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
+let canvasCenter = canvas.height / 2;
+let radGradient = c.createRadialGradient(canvasCenter, canvasCenter, 50, canvasCenter, canvasCenter, 250);
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
@@ -256,11 +258,14 @@ const keys = {
 let frames = 0;
 let randomInterval = Math.floor((Math.random() * 500) + 500);
 console.log(randomInterval)
-
+radGradient.addColorStop(0.5, "blue");
+radGradient.addColorStop(0.2, "purple");
+radGradient.addColorStop(0.6, "black");
 /** Customized and animate every time game background */
 function animate() {
+
     requestAnimationFrame(animate)
-    c.fillStyle = 'black'
+    c.fillStyle = radGradient
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
 
@@ -273,9 +278,8 @@ function animate() {
         }else{
             invaderProjectile.update();
         }
-
     });
-
+        //console.log(invaderProjectiles)
 
     projectiles.forEach((projectile, index) => {
 
@@ -287,15 +291,15 @@ function animate() {
         } else {
             projectile.update()
         }
-
     });
+    //console.log(projectiles)
 
     /** iterate array and update invaders velocity */
     grids.forEach((grid, gridIndex) => {
         grid.update()
 
         /** Calling Shoot function to create spawn projectiles*/
-        if(frames % 100 === 0 && grid.invaders.length > 0 ){
+        if(frames % 200 === 0 && grid.invaders.length > 0 ){
 
             /** find a new random invader in every grid & call to shoot method on which invader */
             grid.invaders[
