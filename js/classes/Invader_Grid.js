@@ -1,4 +1,3 @@
-
 class Invader_Grid {
     constructor() {
         this.position = {
