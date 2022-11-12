@@ -294,6 +294,22 @@ const keys = {
 let frames = 0;
 let randomInterval = Math.floor((Math.random() * 500) + 500);
 
+/** Create the particles for the designs canvas with used many stars */
+for (let i = 0; i <100; i++) {
+    particles.push(new Particle({
+        position:{
+            x:Math.random() * canvas.width,
+            y:Math.random() * canvas.height
+        },
+        velocity:{
+            x:0,
+            y:1
+        },
+        radius:Math.random()*3,
+        color: 'white'
+    }));
+}
+
 /** Create the particles After the invader blast (RE-USED FUNCTION) */
     function createParticles({object , color}) {
 
