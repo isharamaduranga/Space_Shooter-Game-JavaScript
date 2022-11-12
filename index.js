@@ -18,6 +18,7 @@ class Player {
             y: 0
         }
         this.rotation = 0;
+        this.opacity = 1
 
         /** Customized for player varieties */
         const image = new Image();
@@ -40,7 +41,7 @@ class Player {
         /*  c.fillStyle = 'red'
           c.fillRect(this.position.x,this.position.y,this.width,this.height);*/
         c.save()
-
+        c.globalAlpha =this.opacity
         c.translate(
             player.position.x + player.width / 2,
             player.position.y + player.height / 2)
@@ -298,6 +299,10 @@ const keys = {
 /** Create the star particles for the designs canvas with used many stars */
 let frames = 0;
 let randomInterval = Math.floor((Math.random() * 500) + 500);
+let game = {
+    over:false,
+    active:true
+}
 
 
 for (let i = 0; i <100; i++) {
@@ -341,6 +346,9 @@ radGradient.addColorStop(0.6, "black");
 
 /** Customized and animate every time game background */
 function animate() {
+
+    /** If game not active(boolean==false) Stop the game  */
+    if(!game.active) return
 
     requestAnimationFrame(animate)
     c.fillStyle = radGradient
@@ -389,8 +397,19 @@ function animate() {
             //console.log('Your are loos buddy !!!!!')
 
             setTimeout(() => {
-                invaderProjectiles.splice(index, 1)
-            }, 0)
+
+                /** close game logic of (boolean active) */
+                game.active = false;
+
+            }, 2000);
+
+            setTimeout(() => {
+                invaderProjectiles.splice(index, 1);
+                /** Hide the Player in Canvas */
+                player.opacity = 0;
+                game.over = true;
+
+            }, 0);
 
             /** call the createParticles function and pass the argument for the which object */
             createParticles({
@@ -514,6 +533,7 @@ animate();
 /** Player control keydown event Listener */
 addEventListener("keydown", ({key}) => {
 
+    if (game.over) return
     switch (key) {
 
         case 'ArrowLeft':
