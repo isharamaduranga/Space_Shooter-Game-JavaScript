@@ -349,6 +349,13 @@ function animate() {
 
     /** Update blast particles & clean the Unnecessary Particles after the blast */
     particles.forEach((particle,i) => {
+
+        /** extend star particles infinity of canvas Logic (Not created new particles) **/
+        if(particle.position.y-particle.radius >= canvas.height){
+            particle.position.x = Math.random()*  canvas.width
+            particle.position.y = -particle.radius
+        }
+
         if(particle.opacity<= 0){
 
             setTimeout(()=>{
