@@ -102,13 +102,14 @@ class projectile {
 /**                                       PARTICLE CLASS                                          */
 //================================================================================================== //
 class Particle {
-    constructor({position, velocity, radius, color}) {
+    constructor({position, velocity, radius, color,fades}) {
         this.position = position
         this.velocity = velocity
         // for size of Particles
         this.radius = radius
         this.color = color
         this.opacity = 1
+        this.fades =fades
     }
 
     draw() {
@@ -127,7 +128,11 @@ class Particle {
         this.draw()
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
-        this.opacity -= 0.01
+
+        if(this.fades){
+            this.opacity -= 0.01
+        }
+
     }
 }
 
@@ -290,11 +295,10 @@ const keys = {
         pressed: false
     }
 }
-
+/** Create the particles for the designs canvas with used many stars */
 let frames = 0;
 let randomInterval = Math.floor((Math.random() * 500) + 500);
 
-/** Create the particles for the designs canvas with used many stars */
 for (let i = 0; i <100; i++) {
     particles.push(new Particle({
         position:{
@@ -311,9 +315,9 @@ for (let i = 0; i <100; i++) {
 }
 
 /** Create the particles After the invader blast (RE-USED FUNCTION) */
-    function createParticles({object , color}) {
+function createParticles({object , color,fades}) {
 
-    for (let i = 0; i <15; i++) {
+    for (let i = 0; i <18; i++) {
         particles.push(new Particle({
             position:{
                 x:object.position.x + object.width / 2,
@@ -323,8 +327,10 @@ for (let i = 0; i <100; i++) {
                 x:(Math.random()-0.5)*2,
                 y:(Math.random()-0.5)*2
             },
-            radius:Math.random()*3,
-            color:color || 'deeppink'
+            radius:Math.random()*6,
+            color:color || 'deeppink',
+            fades
+
         }));
     }
 }
@@ -381,7 +387,8 @@ function animate() {
             /** call the createParticles function and pass the argument for the which object */
             createParticles({
                 object:player,
-                color:'white'
+                color:'gold',
+                fades:true
             });
         }
     });
@@ -443,6 +450,7 @@ function animate() {
                             /** call the createParticles function and pass the argument for the which object */
                             createParticles({
                                 object:invader,
+                                fades: true
                             });
 
                             /** Remove invader and projectile */
