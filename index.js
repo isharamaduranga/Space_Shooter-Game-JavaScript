@@ -1,16 +1,18 @@
+
+/** Select Canvas and  introduced unique Ids for the easy to use Dom */
 const canvas = document.querySelector('canvas');
 const scoreEl = document.querySelector('#scoreEl');
 const c = canvas.getContext('2d');
 
-// For the Design colour planet on Canvas
+/** For the Design colour planet on Canvas */
 let canvasCenter = canvas.height / 2;
 let radGradient = c.createRadialGradient(canvasCenter, canvasCenter, 50, canvasCenter, canvasCenter, 300);
 
-// Actual width and height in canvas
+/**  Actual width and height in canvas */
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-
+/** Main Objects and Arrays */
 let player = new Player();
 let projectiles = [];
 let grids = [];
@@ -32,11 +34,12 @@ let keys = {
 let frames = 0;
 let randomInterval = Math.floor((Math.random() * 500) + 500);
 let game = {
-    over:false,
-    active:true
+    over: false,
+    active: true
 }
 let score = 0;
 
+/** Defined  function of init() for the reused to start and restart game .. */
 function init() {
     player = new Player();
     projectiles = [];
@@ -55,7 +58,7 @@ function init() {
             pressed: false
         }
     }
-    frames =0
+    frames = 0
     frames = 0
     randomInterval = Math.floor(Math.random() * 500 + 500)
     game = {
@@ -63,26 +66,28 @@ function init() {
         active: true
     }
     score = 0
+
+    /** Set scores values to related elements */
     document.querySelector('#finalScore').innerHTML = score
     document.querySelector('#scoreEl').innerHTML = score
 
-    for (let i = 0; i <100; i++) {
+    for (let i = 0; i < 100; i++) {
         particles.push(new Particle({
-            position:{
-                x:Math.random() * canvas.width,
-                y:Math.random() * canvas.height
+            position: {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height
             },
-            velocity:{
-                x:0,
-                y:1
+            velocity: {
+                x: 0,
+                y: 1
             },
-            radius:Math.random()*3,
+            radius: Math.random() * 3,
             color: 'white'
         }));
     }
 }
 
-
+/** Function of defined end game process */
 function endGame(index) {
     //console.log('Your are loos buddy !!!!!')
     setTimeout(() => {
@@ -103,33 +108,34 @@ function endGame(index) {
 
     /** call the createParticles function and pass the argument for the which object */
     createParticles({
-        object:player,
-        color:'gold',
-        fades:true
+        object: player,
+        color: 'gold',
+        fades: true
     });
 }
 
 
 /** Create the particles After the invader blast (RE-USED FUNCTION) */
-function createParticles({object , color,fades}) {
+function createParticles({object, color, fades}) {
 
-    for (let i = 0; i <18; i++) {
+    for (let i = 0; i < 18; i++) {
         particles.push(new Particle({
-            position:{
-                x:object.position.x + object.width / 2,
-                y:object.position.y + object.height /2
+            position: {
+                x: object.position.x + object.width / 2,
+                y: object.position.y + object.height / 2
             },
-            velocity:{
-                x:(Math.random()-0.5)*2,
-                y:(Math.random()-0.5)*2
+            velocity: {
+                x: (Math.random() - 0.5) * 2,
+                y: (Math.random() - 0.5) * 2
             },
-            radius:Math.random()*6,
-            color:color || 'deeppink',
+            radius: Math.random() * 6,
+            color: color || 'deeppink',
             fades
 
         }));
     }
 }
+/** Canvas planet art color controllers*/
 radGradient.addColorStop(0.5, "blue");
 radGradient.addColorStop(0.2, "purple");
 radGradient.addColorStop(0.6, "black");
@@ -138,7 +144,7 @@ radGradient.addColorStop(0.6, "black");
 function animate() {
 
     /** If game not active(boolean==false) Stop the game  */
-    if(!game.active) return
+    if (!game.active) return
 
     requestAnimationFrame(animate)
     c.fillStyle = radGradient
@@ -155,24 +161,23 @@ function animate() {
 
 
     /** Update blast particles & clean the Unnecessary Particles after the blast */
-    particles.forEach((particle,i) => {
+    particles.forEach((particle, i) => {
 
         /** extend star particles infinity of canvas Logic (Not created new particles) **/
-        if(particle.position.y-particle.radius >= canvas.height){
-            particle.position.x = Math.random()*  canvas.width
+        if (particle.position.y - particle.radius >= canvas.height) {
+            particle.position.x = Math.random() * canvas.width
             particle.position.y = -particle.radius
         }
 
-        if(particle.opacity<= 0){
+        if (particle.opacity <= 0) {
 
-            setTimeout(()=>{
-                particles.splice(i,1)
-            },0);
-        }else {
+            setTimeout(() => {
+                particles.splice(i, 1)
+            }, 0);
+        } else {
             particle.update();
         }
     });
-
 
 
     /** Update Invader Projectiles & clean the Unnecessary Invader Projectiles in InvaderProjectiles Array with condition */
@@ -192,9 +197,9 @@ function animate() {
             invaderProjectile.position.x <= player.position.x + player.width
         ) {
             /** ********************************************* */
-                         /** E N D   G A M E*/
+            /** E N D   G A M E*/
             /** ********************************************* */
-           endGame(index);
+            endGame(index);
         }
     });
     //console.log(invaderProjectiles)
@@ -258,7 +263,7 @@ function animate() {
 
                             /** call the createParticles function and pass the argument for the which object */
                             createParticles({
-                                object:invader,
+                                object: invader,
                                 fades: true
                             });
 
@@ -274,7 +279,7 @@ function animate() {
                                     lastInvader.position.x - firstInvader.position.x + lastInvader.width
 
                                 grid.position.x = firstInvader.position.x
-                            }else {
+                            } else {
                                 grids.splice(gridIndex, 1);
                             }
                         }
@@ -309,24 +314,22 @@ function animate() {
     frames++
 }
 
-
-
+/**  Selected Game start elements as we need to implement */
 document.querySelector('#startButton').addEventListener('click', () => {
-    /*  audio.backgroundMusic.play()
-      audio.start.play()*/
 
     document.querySelector('#startScreen').style.display = 'none'
     document.querySelector('#scoreContainer').style.display = 'block'
     init()
     animate()
-})
+});
 
+/**  Selected Game Re-Start elements as we need to implement */
 document.querySelector('#restartButton').addEventListener('click', () => {
-    // audio.select.play()
     document.querySelector('#restartScreen').style.display = 'none'
     init()
     animate()
-})
+});
+
 /** Player control keydown event Listener */
 addEventListener("keydown", ({key}) => {
 
@@ -334,17 +337,14 @@ addEventListener("keydown", ({key}) => {
     switch (key) {
 
         case 'ArrowLeft':
-            // console.log('turn left');
             keys.ArrowLeft.pressed = true
             break;
 
         case 'ArrowRight':
-            // console.log('turn Right')
             keys.ArrowRight.pressed = true
             break;
 
         case ' ':
-            // console.log('Shoot the target');
             projectiles.push(
                 new projectile({
                     position: {
@@ -360,21 +360,19 @@ addEventListener("keydown", ({key}) => {
     }
 });
 
+/** Player control keyUp event Listener */
 addEventListener("keyup", ({key}) => {
     switch (key) {
 
         case 'ArrowLeft':
-            //console.log('turn left');
             keys.ArrowLeft.pressed = false
             break;
 
         case 'ArrowRight':
-            //console.log('turn Right')
             keys.ArrowRight.pressed = false
             break;
 
         case ' ':
-            //console.log('Shoot the target');
             break;
     }
 });
