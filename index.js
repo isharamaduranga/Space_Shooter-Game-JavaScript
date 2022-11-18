@@ -11,13 +11,13 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 
 
-const player = new Player();
-const projectiles = [];
-const grids = [];
-const invaderProjectiles = [];
-const particles = [];
+let player = new Player();
+let projectiles = [];
+let grids = [];
+let invaderProjectiles = [];
+let particles = [];
 
-const keys = {
+let keys = {
     ArrowLeft: {
         pressed: false
     },
