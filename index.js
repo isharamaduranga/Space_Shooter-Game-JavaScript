@@ -82,9 +82,16 @@ function init() {
     }
 }
 
-/** Function of defined end game process */
-function endGame() {
+
+function endGame(index) {
     //console.log('Your are loos buddy !!!!!')
+    setTimeout(() => {
+        invaderProjectiles.splice(index, 1);
+        /** Hide the Player in Canvas */
+        player.opacity = 0;
+        game.over = true;
+
+    }, 0);
 
     setTimeout(() => {
 
@@ -94,21 +101,12 @@ function endGame() {
         document.querySelector('#finalScore').innerHTML = score
     }, 2000);
 
-    setTimeout(() => {
-        invaderProjectiles.splice(index, 1);
-        /** Hide the Player in Canvas */
-        player.opacity = 0;
-        game.over = true;
-
-    }, 0);
-
     /** call the createParticles function and pass the argument for the which object */
     createParticles({
         object:player,
         color:'gold',
         fades:true
     });
-
 }
 
 
@@ -196,7 +194,7 @@ function animate() {
             /** ********************************************* */
                          /** E N D   G A M E*/
             /** ********************************************* */
-                 endGame();
+           endGame(index);
         }
     });
     //console.log(invaderProjectiles)
