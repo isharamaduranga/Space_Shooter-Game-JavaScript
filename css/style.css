@@ -96,3 +96,8 @@ body{
     margin: 0;
     font-size: 48px
 }
+
+#restartScreen>div>p{
+    color: whitesmoke;
+    margin-top: 0
+}
