@@ -82,6 +82,34 @@ function init() {
     }
 }
 
+/** Function of defined end game process */
+function endGame() {
+    //console.log('Your are loos buddy !!!!!')
+
+    setTimeout(() => {
+
+        /** close game logic of (boolean active) */
+        game.active = false;
+        document.querySelector('#restartScreen').style.display = 'flex'
+        document.querySelector('#finalScore').innerHTML = score
+    }, 2000);
+
+    setTimeout(() => {
+        invaderProjectiles.splice(index, 1);
+        /** Hide the Player in Canvas */
+        player.opacity = 0;
+        game.over = true;
+
+    }, 0);
+
+    /** call the createParticles function and pass the argument for the which object */
+    createParticles({
+        object:player,
+        color:'gold',
+        fades:true
+    });
+
+}
 
 
 /** Create the particles After the invader blast (RE-USED FUNCTION) */
@@ -166,32 +194,9 @@ function animate() {
             invaderProjectile.position.x <= player.position.x + player.width
         ) {
             /** ********************************************* */
-            /** E N D   G A M E*/
+                         /** E N D   G A M E*/
             /** ********************************************* */
-            //console.log('Your are loos buddy !!!!!')
-
-            setTimeout(() => {
-
-                /** close game logic of (boolean active) */
-                game.active = false;
-                document.querySelector('#restartScreen').style.display = 'flex'
-                document.querySelector('#finalScore').innerHTML = score
-            }, 2000);
-
-            setTimeout(() => {
-                invaderProjectiles.splice(index, 1);
-                /** Hide the Player in Canvas */
-                player.opacity = 0;
-                game.over = true;
-
-            }, 0);
-
-            /** call the createParticles function and pass the argument for the which object */
-            createParticles({
-                object:player,
-                color:'gold',
-                fades:true
-            });
+                 endGame();
         }
     });
     //console.log(invaderProjectiles)
