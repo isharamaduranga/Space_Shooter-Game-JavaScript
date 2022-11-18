@@ -37,21 +37,52 @@ let game = {
 }
 let score = 0;
 
+function init() {
+    player = new Player();
+    projectiles = [];
+    grids = [];
+    invaderProjectiles = [];
+    particles = [];
 
-for (let i = 0; i <100; i++) {
-    particles.push(new Particle({
-        position:{
-            x:Math.random() * canvas.width,
-            y:Math.random() * canvas.height
+    keys = {
+        ArrowLeft: {
+            pressed: false
         },
-        velocity:{
-            x:0,
-            y:1
+        ArrowRight: {
+            pressed: false
         },
-        radius:Math.random()*3,
-        color: 'white'
-    }));
+        space: {
+            pressed: false
+        }
+    }
+    frames =0
+    frames = 0
+    randomInterval = Math.floor(Math.random() * 500 + 500)
+    game = {
+        over: false,
+        active: true
+    }
+    score = 0
+    document.querySelector('#finalScore').innerHTML = score
+    document.querySelector('#scoreEl').innerHTML = score
+
+    for (let i = 0; i <100; i++) {
+        particles.push(new Particle({
+            position:{
+                x:Math.random() * canvas.width,
+                y:Math.random() * canvas.height
+            },
+            velocity:{
+                x:0,
+                y:1
+            },
+            radius:Math.random()*3,
+            color: 'white'
+        }));
+    }
 }
+
+
 
 /** Create the particles After the invader blast (RE-USED FUNCTION) */
 function createParticles({object , color,fades}) {
@@ -145,7 +176,6 @@ function animate() {
                 game.active = false;
                 document.querySelector('#restartScreen').style.display = 'flex'
                 document.querySelector('#finalScore').innerHTML = score
-
             }, 2000);
 
             setTimeout(() => {
@@ -221,7 +251,7 @@ function animate() {
 
                             /** The score increases as the invaders are destroyed */
                             score += 100;
-                            scoreDisplay.innerHTML = score;
+                            scoreEl.innerHTML = score;
 
                             /** call the createParticles function and pass the argument for the which object */
                             createParticles({
@@ -276,9 +306,24 @@ function animate() {
     frames++
 }
 
-animate();
 
 
+document.querySelector('#startButton').addEventListener('click', () => {
+    /*  audio.backgroundMusic.play()
+      audio.start.play()*/
+
+    document.querySelector('#startScreen').style.display = 'none'
+    document.querySelector('#scoreContainer').style.display = 'block'
+    init()
+    animate()
+})
+
+document.querySelector('#restartButton').addEventListener('click', () => {
+    // audio.select.play()
+    document.querySelector('#restartScreen').style.display = 'none'
+    init()
+    animate()
+})
 /** Player control keydown event Listener */
 addEventListener("keydown", ({key}) => {
 
