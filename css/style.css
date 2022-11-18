@@ -90,3 +90,9 @@ body{
     transform: translate(-50%, -50%);
     left: 50%;
 }
+
+#finalScore{
+    color: white;
+    margin: 0;
+    font-size: 48px
+}
