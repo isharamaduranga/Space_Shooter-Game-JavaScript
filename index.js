@@ -1,12 +1,12 @@
 const canvas = document.querySelector('canvas');
-const scoreDisplay = document.querySelector('#scoreDisplay');
-
-console.log(scoreDisplay)
-
+const scoreEl = document.querySelector('#scoreEl');
 const c = canvas.getContext('2d');
+
+// For the Design colour planet on Canvas
 let canvasCenter = canvas.height / 2;
 let radGradient = c.createRadialGradient(canvasCenter, canvasCenter, 50, canvasCenter, canvasCenter, 300);
 
+// Actual width and height in canvas
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
