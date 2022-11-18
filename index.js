@@ -143,6 +143,8 @@ function animate() {
 
                 /** close game logic of (boolean active) */
                 game.active = false;
+                document.querySelector('#restartScreen').style.display = 'flex'
+                document.querySelector('#finalScore').innerHTML = score
 
             }, 2000);
 
