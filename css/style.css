@@ -76,3 +76,10 @@ body{
     text-align: center;
     color: white
 }
+
+#restartButton {
+    cursor: pointer;
+    position: relative;
+    display: inline-block
+}
+
