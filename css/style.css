@@ -44,3 +44,9 @@ body{
     text-align: center;
     color: white
 }
+
+#startButton {
+    cursor: pointer;
+    position: relative;
+    display: inline-block
+}
