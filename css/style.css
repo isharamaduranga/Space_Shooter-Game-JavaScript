@@ -26,3 +26,21 @@ body{
     position: relative;
 }
 
+#startScreen {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url('../img/startScreenBackground.png');
+    z-index: 20;
+    background-size: 800px 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white
+}
