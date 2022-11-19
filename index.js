@@ -89,6 +89,7 @@ function init() {
 
 /** Function of defined end game process */
 function endGame(index) {
+
     //console.log('Your are loos buddy !!!!!')
     setTimeout(() => {
         invaderProjectiles.splice(index, 1);
@@ -268,6 +269,7 @@ function animate() {
                             });
 
                             /** Remove invader and projectile */
+
                             grid.invaders.splice(i, 1)
                             projectiles.splice(p, 1)
 
@@ -317,6 +319,7 @@ function animate() {
 /**  Selected Game start elements as we need to implement */
 document.querySelector('#startButton').addEventListener('click', () => {
 
+
     document.querySelector('#startScreen').style.display = 'none'
     document.querySelector('#scoreContainer').style.display = 'block'
     init()
@@ -325,6 +328,7 @@ document.querySelector('#startButton').addEventListener('click', () => {
 
 /**  Selected Game Re-Start elements as we need to implement */
 document.querySelector('#restartButton').addEventListener('click', () => {
+
     document.querySelector('#restartScreen').style.display = 'none'
     init()
     animate()
@@ -345,6 +349,7 @@ addEventListener("keydown", ({key}) => {
             break;
 
         case ' ':
+
             projectiles.push(
                 new projectile({
                     position: {
