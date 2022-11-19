@@ -350,7 +350,7 @@ addEventListener("keydown", ({key}) => {
             break;
 
         case ' ':
-
+            audio.shoot.play();
             projectiles.push(
                 new projectile({
                     position: {
