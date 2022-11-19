@@ -89,7 +89,7 @@ function init() {
 
 /** Function of defined end game process */
 function endGame(index) {
-
+    audio.gameOver.play();
     //console.log('Your are loos buddy !!!!!')
     setTimeout(() => {
         invaderProjectiles.splice(index, 1);
