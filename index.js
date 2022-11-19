@@ -329,7 +329,7 @@ document.querySelector('#startButton').addEventListener('click', () => {
 
 /**  Selected Game Re-Start elements as we need to implement */
 document.querySelector('#restartButton').addEventListener('click', () => {
-
+    audio.select.play()
     document.querySelector('#restartScreen').style.display = 'none'
     init()
     animate()
