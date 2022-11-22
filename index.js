@@ -152,6 +152,7 @@ function animate() {
 
     /** calling Planet Functions */
     planet1();
+    planet2();
 
     for (let i = player.particles.length - 1; i >= 0; i--) {
         const particle = player.particles[i]
