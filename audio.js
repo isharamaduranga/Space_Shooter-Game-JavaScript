@@ -4,9 +4,6 @@ const audio = {
         src: '../audio/backgroundMusic.wav',
         loop: true
     }),
-    bomb: new Howl({
-        src: '../audio/bomb.mp3'
-    }),
     enemyShoot: new Howl({
         src: '../audio/enemyShoot.wav'
     }),

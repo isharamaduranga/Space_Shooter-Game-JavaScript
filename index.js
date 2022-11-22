@@ -133,11 +133,6 @@ function createParticles({object, color, fades}) {
     }
 }
 
-/** Canvas planet art color controllers*/
-
-/*radGradient.addColorStop(0.5, "blue");
-radGradient.addColorStop(0.2, "purple");
-radGradient.addColorStop(0.6, "black");*/
 
 /** Customized and animate every time game background */
 function animate() {
@@ -269,7 +264,7 @@ function animate() {
                             });
 
                             /** Remove invader and projectile */
-
+                            audio.explode.play();
                             grid.invaders.splice(i, 1)
                             projectiles.splice(p, 1)
 
