@@ -13,9 +13,9 @@ class projectile {
 
     draw() {
         c.beginPath()
-        c.arc(this.position.x, this.position.y,
+        c.arc(this.position.x, this.position.y+25,
             this.radius, 0, Math.PI * 2)
-        c.fillStyle = 'red'
+        c.fillStyle = 'lime'
         c.fill()
         c.closePath()
     }

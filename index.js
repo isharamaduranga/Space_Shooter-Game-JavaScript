@@ -1,12 +1,8 @@
-
 /** Select Canvas and  introduced unique Ids for the easy to use Dom */
 const canvas = document.querySelector('canvas');
 const scoreEl = document.querySelector('#scoreEl');
 const c = canvas.getContext('2d');
 
-/** For the Design colour planet on Canvas */
-let canvasCenter = canvas.height / 2;
-let radGradient = c.createRadialGradient(canvasCenter, canvasCenter, 50, canvasCenter, canvasCenter, 300);
 
 /**  Actual width and height in canvas */
 canvas.width = innerWidth;
@@ -136,10 +132,12 @@ function createParticles({object, color, fades}) {
         }));
     }
 }
+
 /** Canvas planet art color controllers*/
-radGradient.addColorStop(0.5, "blue");
+
+/*radGradient.addColorStop(0.5, "blue");
 radGradient.addColorStop(0.2, "purple");
-radGradient.addColorStop(0.6, "black");
+radGradient.addColorStop(0.6, "black");*/
 
 /** Customized and animate every time game background */
 function animate() {
@@ -148,9 +146,10 @@ function animate() {
     if (!game.active) return
 
     requestAnimationFrame(animate)
-    c.fillStyle = radGradient
+    c.fillStyle = "black"
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
+
 
 
     for (let i = player.particles.length - 1; i >= 0; i--) {
@@ -338,8 +337,10 @@ document.querySelector('#restartButton').addEventListener('click', () => {
 /** Player control keydown event Listener */
 addEventListener("keydown", ({key}) => {
 
+
     if (game.over) return
     switch (key) {
+
 
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = true
@@ -373,6 +374,7 @@ addEventListener("keyup", ({key}) => {
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = false
             break;
+
 
         case 'ArrowRight':
             keys.ArrowRight.pressed = false

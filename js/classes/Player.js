@@ -15,9 +15,9 @@ class Player {
 
         /** Customized for player varieties */
         const image = new Image();
-        image.src = './img/jet.png'
+        image.src = './img/jet2.png'
         image.onload = () => {
-            const scale = 0.10
+            const scale = 0.30
             this.image = image
             this.width = image.width * scale;
             this.height = image.height * scale;
@@ -73,7 +73,7 @@ class Player {
                 new Particle({
                     position: {
                         x: this.position.x + this.width / 2,
-                        y: this.position.y + this.height-15
+                        y: this.position.y + this.height-25
                     },
                     velocity: {
                         x: (Math.random() - 0.5) * 1.5,

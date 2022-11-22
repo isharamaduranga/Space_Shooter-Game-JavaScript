@@ -34,7 +34,7 @@ class Invader_Grid {
 
         if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
             this.velocity.x = -this.velocity.x
-            this.velocity.y = 30
+            this.velocity.y = 90
         }
     }
 }
