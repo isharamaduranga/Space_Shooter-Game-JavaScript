@@ -1,25 +1,25 @@
-Howler.volume(0.6);
+Howler.volume(0.5);
 const audio = {
     backgroundMusic: new Howl({
-        src: '../audio/backgroundMusic.wav',
+        src: './audio/backgroundMusic.wav',
         loop: true
     }),
     enemyShoot: new Howl({
-        src: '../audio/enemyShoot.wav'
+        src: './audio/enemyShoot.wav'
     }),
     explode: new Howl({
-        src: '../audio/explode.wav'
+        src: './audio/explode.wav'
     }),
     gameOver: new Howl({
-        src: '../audio/gameOver.mp3'
+        src: './audio/gameOver.mp3'
     }),
     select: new Howl({
-        src: '../audio/select.mp3'
+        src: './audio/select.mp3'
     }),
     shoot: new Howl({
-        src: '../audio/shoot.wav'
+        src: './audio/shoot.wav'
     }),
     start: new Howl({
-        src: '../audio/start.mp3'
+        src: './audio/start.mp3'
     })
 }
