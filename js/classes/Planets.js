@@ -58,6 +58,36 @@ function planet2() {
     c.beginPath();
     c.arc(canvas.width * 0.4, canvas.height * 0.12, canvas.width * 0.05, 0, Math.PI * 2, false);
     c.fill();
+}
 
+/** Planet Three  */
+function planet3() {
+
+    //apply a gradient for the halo
+    var gradient3 = c.createRadialGradient(canvas.width * 0.6, canvas.height * 0.07, 0, canvas.width *
+        0.6, canvas.height * 0.07, canvas.width * 0.04);
+    gradient3.addColorStop(0.4, "#fa8b47");
+    gradient3.addColorStop(1, "black");
+
+    //draw the halo
+    c.fillStyle = gradient3;
+    c.beginPath();
+    c.arc(canvas.width * 0.6, canvas.height * 0.07, canvas.width * 0.04, 0, Math.PI * 2, false);
+    c.fill();
+
+
+    //apply a gradient
+    var gradient3 = c.createRadialGradient(canvas.width * 0.5, canvas.height * 0.06, 0, canvas.width *
+        0.5, canvas.height * 0.06, canvas.width * 0.10);
+
+
+    gradient3.addColorStop(0.4, "red");
+    gradient3.addColorStop(1, "orange");
+
+    //draw the planet
+    c.fillStyle = gradient3;
+    c.beginPath();
+    c.arc(canvas.width * 0.6, canvas.height * 0.07, canvas.width * 0.03, 0, Math.PI * 2, false);
+    c.fill();
 
 }
