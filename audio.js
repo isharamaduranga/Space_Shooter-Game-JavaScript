@@ -3,6 +3,7 @@ const audio = {
     backgroundMusic: new Howl({
         src: './audio/backgroundMusic.wav',
         loop: true
+
     }),
     enemyShoot: new Howl({
         src: './audio/enemyShoot.wav'
