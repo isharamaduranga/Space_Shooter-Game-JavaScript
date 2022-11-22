@@ -150,7 +150,8 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
 
-
+    /** calling Planet Functions */
+    planet1()
 
     for (let i = player.particles.length - 1; i >= 0; i--) {
         const particle = player.particles[i]
