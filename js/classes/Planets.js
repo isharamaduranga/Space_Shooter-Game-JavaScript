@@ -77,7 +77,7 @@ function planet3() {
 
 
     //apply a gradient
-    var gradient3 = c.createRadialGradient(canvas.width * 0.5, canvas.height * 0.06, 0, canvas.width *
+   gradient3 = c.createRadialGradient(canvas.width * 0.5, canvas.height * 0.06, 0, canvas.width *
         0.5, canvas.height * 0.06, canvas.width * 0.10);
 
 
